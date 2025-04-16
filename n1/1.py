@@ -24,4 +24,4 @@ if (N - smaller) <= (larger - N):
     print(N - smaller)
 else:
     print(larger - N)
-python code
+

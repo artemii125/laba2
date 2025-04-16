@@ -30,3 +30,4 @@ class Program
         Console.WriteLine("Разность: " + Math.Min(N - smaller, larger - N));
     }
 }
+

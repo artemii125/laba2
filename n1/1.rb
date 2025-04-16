@@ -17,3 +17,4 @@ larger += 1 until smpl(larger)
 
 # Вывод разности
 puts "Разность: #{[(N - smaller), (larger - N)].min}"
+#

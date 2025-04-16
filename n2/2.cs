@@ -22,3 +22,4 @@ class Program {
         Console.WriteLine("Выпито банок и кол-во итераций: " + drunk + " " + i);
     }
 }
+//

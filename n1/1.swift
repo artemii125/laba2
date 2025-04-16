@@ -22,3 +22,4 @@ if let line = readLine(), let N = Int(line) {
     // Вывод результата
     print("Разность:", min(N - smaller, larger - N))
 }
+//

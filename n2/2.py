@@ -11,3 +11,4 @@ while cups[0] >= cups[1]:
         cups[0] = full + empty
 i += 1 # выпиваем оставшиеся     
 print(drunk, i)
+#

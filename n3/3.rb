@@ -19,3 +19,4 @@ numbers.each do |num|
 end
 
 puts "Количество нечётных цифр в числах: #{odd.join(' ')}"
+#

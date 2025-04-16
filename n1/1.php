@@ -21,3 +21,4 @@ while (!smpl($larger)) $larger++;
 // Сравнение расстояний и вывод результата
 echo "Разность: " . min($N - $smaller, $larger - $N) . PHP_EOL;
 ?>
+//

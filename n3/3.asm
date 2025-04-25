@@ -1,115 +1,117 @@
-BITS 64
+BITS 64 ;Используем 64-битный режим процессора
 
-section .data
+section .data ;Инициализированные данные
     prompt db "Введите количество чисел и сами числа через пробел: ", 0
-    prompt_len equ $ - prompt
-    newline db 10
+    prompt_len equ $ - prompt ;Длина строки
+    newline db 10 ;Символ новой строки
 
-section .bss
-    buffer resb 256
-    odd_counts resb 128
-    digit_char resb 1
+section .bss ;Секция неинициализированных данных
+    buffer resb 256 ;Максимум символов
+    odd_counts resb 128 ;Максимум чисел для массива
+    digit_char resb 1 ;буфер для вывода 1 цифры
 
-section .text
+section .text ;Секция кода
     global _start
 
 _start:
-    ; write(1, prompt, prompt_len)
-    mov eax, 4
-    mov ebx, 1
-    mov ecx, prompt
-    mov edx, prompt_len
-    int 0x80
+    ;Вызов ввода 
+    mov eax, 4 ;Номер сстемного вызова write
+    mov ebx, 1 ;Файловый дескриптор stdout
+    mov ecx, prompt ;Указатель на строку для вывода
+    mov edx, prompt_len ;Длина строки
+    int 0x80 ;Прерывание
 
-    ; read(0, buffer, 256)
-    mov eax, 3
-    mov ebx, 0
-    mov ecx, buffer
-    mov edx, 256
-    int 0x80
+    ;Анализ ввода
+    mov eax, 3 ;Номер системного вызова read
+    mov ebx, 0 ;Файловый дескриптор stdin
+    mov ecx, buffer ;Указатель на буфер для чтения
+    mov edx, 256 ;Максимальное число байт для чтения
+    int 0x80 ;Прерывание
 
     mov esi, buffer      ; текущий символ
     xor edi, edi         ; счётчик чисел
     xor ecx, ecx         ; общее количество чисел
 
     ; читаем первое число (amount)
-    xor ebx, ebx
+    xor ebx, ebx ;ebx хранит число
 .read_amount:
-    mov al, [esi]
-    cmp al, ' '
-    je .amount_done
-    sub al, '0'
-    imul ebx, ebx, 10
-    add bl, al
-    inc esi
-    jmp .read_amount
+    mov al, [esi] ;Загрузка текущего символа
+    cmp al, ' ' ;Проверка на пробел
+    je .amount_done ;Если пробел - переход к следующему
+    sub al, '0' ;Преобразование символа в число
+    imul ebx, ebx, 10 ;Уножение на 10
+    add bl, al ;Добавление новой цифры
+    inc esi ;Переход к следующему 
+    jmp .read_amount ;Повторение
 
-.amount_done:
-    mov ecx, ebx
-    inc esi
+.amount_done: 
+    mov ecx, ebx ;Сохранение кол-ва чисел в ecx
+    inc esi ;Пропуск пробела после кол-ва
 
-.process_next_number:
-    cmp edi, ecx
-    je .print_results
+; Основной цикл обработки чисел
+.process_next_number: 
+    cmp edi, ecx ;Проверка - обработаны ли все
+    je .print_results ;Тогда вывод
 
-    mov al, [esi]
-    cmp al, 10
-    je .print_results
+    mov al, [esi] ;Проверка следующего символа
+    cmp al, 10 ;Проверка на конец строки
+    je .print_results ;Конец - вывод
 
-    xor ebx, ebx
+    xor ebx, ebx ; ;Счетчик
 
-.next_digit_number:
-    mov al, [esi]
-    cmp al, 10
+.next_digit_number: ;Цикл обработки цифр в числе
+    mov al, [esi] ;Загрузка текущего символа
+    cmp al, 10 ;Проверка на конец строки
+    je .number_done 
+    cmp al, ' ' ;Проверка на пробел
     je .number_done
-    cmp al, ' '
-    je .number_done
-    sub al, '0'
-    cmp al, 9
-    ja .skip_char
-    and al, 1
-    cmp al, 1
-    jne .skip_char
-    inc bl
+    sub al, '0' 
+    cmp al, 9 ;Проверка что это цифра (0-9)
+    ja .skip_char ;Если не цифра - пропуск
+    and al, 1 ;Проверяем первый бит - четность
+    cmp al, 1 ;Если 1 - цифра нечетная
+    jne .skip_char ;Если четная - пропуск
+    inc bl ;Увеличение счетчика
 
-.skip_char:
-    inc esi
-    jmp .next_digit_number
+.skip_char: 
+    inc esi ;Переход к следующему символу
+    jmp .next_digit_number ;Продолжение обработки числа
 
 .number_done:
-    mov [odd_counts + edi], bl
-    inc edi
-    inc esi
-    jmp .process_next_number
+    mov [odd_counts + edi], bl ;Сохраняем результат
+    inc edi ;Увеличение счетчика
+    inc esi ;Пропуск пробела после числа
+    jmp .process_next_number ;Обработка следующего числа
 
-.print_results:
-    xor esi, esi
+.print_results: ;Вывод результата
+    xor esi, esi ;Сброс идекса для вывода
 
-.print_loop:
-    cmp esi, edi
-    je .exit
+.print_loop: 
+    cmp esi, edi ;Проверка выведен ли весь результат
+    je .exit ;Да - выход
 
-    mov al, [odd_counts + esi]
-    add al, '0'
-    mov [digit_char], al
+    mov al, [odd_counts + esi] 
+    add al, '0' ;Преоброзование цифу в символ
+    mov [digit_char], al 
 
-    ; write(1, digit_char, 1)
-    mov eax, 4
+    ; Вывод цифры
+    mov eax, 4 
     mov ebx, 1
     mov ecx, digit_char
     mov edx, 1
-    int 0x80
+    int 0x80 
 
-    ; write(1, newline, 1)
+    ; Выводим перевод строки
     mov eax, 4
     mov ebx, 1
     mov ecx, newline
     mov edx, 1
     int 0x80
 
-    inc esi
-    jmp .print_loop
+    inc esi ;Переход к следующующему результату 
+    jmp .print_loop ;Продолжение вывода
 
+;Завершение программы
 .exit:
     mov eax, 1
     xor ebx, ebx

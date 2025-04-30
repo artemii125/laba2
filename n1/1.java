@@ -1,30 +1,33 @@
-import kotlin.math.sqrt
+import java.util.Scanner;
 
-// Функция для определения, является ли число простым
-fun smpl(n: Int): Boolean {
-    if (n < 2) return false
-    for (i in 2..sqrt(n.toDouble()).toInt()) {
-        if (n % i == 0) return false
+public class Main {
+    static boolean smpl(int n) {
+        if (n < 2) return false;
+        for (int i = 2; i <= Math.sqrt(n); i++) {
+            if (n % i == 0) return false;
+        }
+        return true;
     }
-    return true
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Введите число для определения разности между ним и ближайшим простым: ");
+        int N = sc.nextInt();
+
+        if (N > 2) {
+            int smaller = N;
+            while (!smpl(smaller)) smaller--;
+
+            int larger = N;
+            while (!smpl(larger)) larger++;
+
+            if (N - smaller <= larger - N) {
+                System.out.println("Разность: " + (N - smaller));
+            } else {
+                System.out.println("Разность: " + (larger - N));
+            }
+        }
+
+        System.out.println("Разность: " + (N - 2));
+    }
 }
-
-fun main() {
-    print("Введите число для определения разности между ним и ближайшим простым: ")
-    val N = readln().toInt()
-
-    // Поиск ближайшего простого числа, меньшего или равного N
-    var smaller = N
-    while (!smpl(smaller)) smaller--
-
-    // Поиск ближайшего простого числа, большего или равного N
-    var larger = N
-    while (!smpl(larger)) larger++
-
-    // Сравнение расстояний и вывод результата
-    if (N - smaller <= larger - N)
-        println("Разность: ${N - smaller}")
-    else
-        println("Разность: ${larger - N}")
-}
-//

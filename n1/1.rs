@@ -1,27 +1,42 @@
-// Функция для проверки простого числа
-function smpl(n) {
-    if (n < 2) return false;
-    for (let i = 2; i <= Math.sqrt(n); i++) {
-        if (n % i === 0) return false;
+use std::io;
+
+// Функция для проверки, является ли число простым
+fn smpl(n: i32) -> bool {
+    if n < 2 {
+        return false;
     }
-    return true;
+    for i in 2..=((n as f64).sqrt() as i32) {
+        if n % i == 0 {
+            return false;
+        }
+    }
+    true
 }
 
-const readline = require('readline');
-const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
-rl.question("Введите число для определения разности между ним и ближайшим простым: ", (input) => {
-    const N = parseInt(input);
+fn main() {
+    println!("Введите число для определения разности между ним и ближайшим простым:");
 
-    // Поиск ближайшего простого числа <= N
-    let smaller = N;
-    while (!smpl(smaller)) smaller--;
+    let mut input = String::new();
+    io::stdin().read_line(&mut input).unwrap();
+    let N: i32 = input.trim().parse().unwrap();
 
-    // Поиск ближайшего простого числа >= N
-    let larger = N;
-    while (!smpl(larger)) larger++;
+    if N > 2 {
+        // Поиск ближайшего простого числа <= N
+        let mut smaller = N;
+        while !smpl(smaller) {
+            smaller -= 1;
+        }
 
-    // Сравнение расстояний и вывод
-    console.log("Разность:", Math.min(N - smaller, larger - N));
-    rl.close();
-});
-//
+        // Поиск ближайшего простого числа >= N
+        let mut larger = N;
+        while !smpl(larger) {
+            larger += 1;
+        }
+
+        // Сравнение расстояний и вывод результата
+        let diff = (N - smaller).abs().min((larger - N).abs());
+        println!("Разность: {}", diff);
+    } else {
+        println!("Разность: {}", N - 2);
+    }
+}

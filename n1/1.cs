@@ -29,7 +29,7 @@ class Program
         // Сравнение расстояний и вывод результата
         Console.WriteLine("Разность: " + Math.Min(N - smaller, larger - N));
         }
-        Console.WriteLine(N - 2);
+        Console.WriteLine("Разность: ", N - 2);
     }
 }
 

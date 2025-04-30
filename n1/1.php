@@ -9,16 +9,17 @@ function smpl($n) {
 }
 echo "Введите число для определения разности между ним и ближайшим простым: ";
 $N = intval(trim(fgets(STDIN)));
-
-// Поиск ближайшего простого числа <= N
-$smaller = $N;
-while (!smpl($smaller)) $smaller--;
-
-// Поиск ближайшего простого числа >= N
-$larger = $N;
-while (!smpl($larger)) $larger++;
-
-// Сравнение расстояний и вывод результата
-echo "Разность: " . min($N - $smaller, $larger - $N) . PHP_EOL;
+if ($N > 2){
+    // Поиск ближайшего простого числа <= N
+    $smaller = $N;
+    while (!smpl($smaller)) $smaller--;
+    
+    // Поиск ближайшего простого числа >= N
+    $larger = $N;
+    while (!smpl($larger)) $larger++;
+    
+    // Сравнение расстояний и вывод результата
+    echo "Разность: " . min($N - $smaller, $larger - $N) . PHP_EOL;
+}
+echo "Разность: " . ($N -2);
 ?>
-//

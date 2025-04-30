@@ -43,6 +43,6 @@ rl.question("Число для определения разности этог�
 	    
 		// Вывод минимального расстояния
 		console.log(Math.min(distanceToSmaller, distanceToLarger));
-    console.log(N - 2);
+    console.log("Разность:", N - 2);
     rl.close();
 });

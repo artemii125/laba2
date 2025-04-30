@@ -42,5 +42,5 @@ func main() {
 	        	fmt.Println("Разность:", larger-N)
 	    	}
 	}
-	fmt.Println(N - 2)
+	fmt.Println("Разность", N - 2)
 }

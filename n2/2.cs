@@ -8,7 +8,7 @@ class Program {
         int drunk = cups[0]; // изначально выпито
         int i = 0;           // счётчик шагов
         int full = 0;        // результат обмена
-
+        if (cups[0] < 1)  return;
         // пока можно обменивать
         while (cups[0] >= cups[1]) {
             i += 1; // опустошаем
@@ -22,4 +22,3 @@ class Program {
         Console.WriteLine("Выпито банок и кол-во итераций: " + drunk + " " + i);
     }
 }
-//

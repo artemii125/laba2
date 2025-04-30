@@ -5,7 +5,7 @@ $cups = array_map('intval', explode(" ", trim(fgets(STDIN))));
 $drunk = $cups[0]; // изначально выпито
 $i = 0;            // счётчик шагов
 $full = 0;         // количество банок после обмена
-if ($cups[0] > 1){
+if ($cups[0] > 0){
     // пока можно менять
     while ($cups[0] >= $cups[1]) {
         $i += 1; // шаг: опустошили

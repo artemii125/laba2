@@ -1,30 +1,27 @@
-const readline = require('readline');
+use std::io;
 
-// Создаём интерфейс для ввода из консоли
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
+fn main() {
+    // Ввод данных
+    println!("Введите кол-во полных банок и эквивалент обмена:");
+    let mut input = String::new();
+    io::stdin().read_line(&mut input).unwrap();
+    let mut cups: Vec<i32> = input.split_whitespace().map(|s| s.parse().unwrap()).collect();
 
-rl.question("Введите кол-во полных банок и эквивалент обмена: ", (line) => {
-    const cups = line.split(' ').map(Number); // читаем два числа: полные банки и курс обмена
-
-    let drunk = cups[0]; // уже выпито (изначально всё, что было)
-    let i = 0; // счётчик шагов (итераций)
-    let full = 0; // получаемые в обмене полные банки
-
-    // Пока есть возможность обменивать пустые банки на полные
-    while (cups[0] >= cups[1]) {
-        i += 1; // шаг: опустошаем банки
-        full = Math.floor(cups[0] / cups[1]); // шаг: получаем полные банки по курсу обмена
-        i += 1; // шаг: обмен выполнен
-        const empty = cups[0] % cups[1]; // остаток пустых банок после обмена
-        drunk += full; // прибавляем к общему количеству выпитого
-        cups[0] = full + empty; // обновляем запас: новые + оставшиеся
+    let mut drunk = cups[0]; // уже выпито
+    let mut i = 0; // счётчик шагов
+    let mut full; // получаемые в обмене полные банки
+    if cups[0] > 0{
+        // Пока есть возможность обменивать
+        while cups[0] >= cups[1] {
+            i += 1; // шаг: опустошаем банки
+            full = cups[0] / cups[1]; // шаг: получаем полные банки
+            i += 1; // шаг: обмен выполнен
+            let empty = cups[0] % cups[1]; // остаток пустых
+            drunk += full; // прибавляем к выпитому
+            cups[0] = full + empty; // обновляем запас
+        }
+    
+        i += 1; // шаг: выпиваем остатки
+        println!("Выпито банок и кол-во итераций: {} {}", drunk, i);
     }
-
-    i += 1; // шаг: выпиваем всё, что осталось
-    console.log("Выпито банок и кол-во итераций:", drunk, i); // вывод результата
-    rl.close(); // закрываем интерфейс
-});
-
+}

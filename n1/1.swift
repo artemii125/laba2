@@ -10,16 +10,17 @@ func smpl(_ n: Int) -> Bool {
 }
 print("Введите число для определения разности между ним и ближайшим простым:", terminator: " ")
 if let line = readLine(), let N = Int(line) {
-
-    // Поиск ближайшего простого числа <= N
-    var smaller = N
-    while !smpl(smaller) { smaller -= 1 }
-
-    // Поиск ближайшего простого числа >= N
-    var larger = N
-    while !smpl(larger) { larger += 1 }
-
-    // Вывод результата
-    print("Разность:", min(N - smaller, larger - N))
+    if N > 2{
+        // Поиск ближайшего простого числа <= N
+        var smaller = N
+        while !smpl(smaller) { smaller -= 1 }
+    
+        // Поиск ближайшего простого числа >= N
+        var larger = N
+        while !smpl(larger) { larger += 1 }
+    
+        // Вывод результата
+        print("Разность:", min(N - smaller, larger - N))
+    }
+    print("Разность:", N - 2)
 }
-//

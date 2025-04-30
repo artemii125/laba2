@@ -7,21 +7,22 @@ def smpl(n):
             return 0
     return 1
 
-N = int(input())
-
-#Поиск ближайшего простого числа, меньшего или равного N
-smaller = N
-while not smpl(smaller):
-    smaller -= 1
-
-#Поиск ближайшего простого числа большего N
-larger = N
-while not smpl(larger):
-    larger += 1
-
-#Сравнивнение расстояния
-if (N - smaller) <= (larger - N):
-    print(N - smaller)
-else:
-    print(larger - N)
-
+N = int(input("Введите число для определения разности между ним и ближайшим простым: "))
+if (N > 2){
+    #Поиск ближайшего простого числа, меньшего или равного N
+    smaller = N
+    while not smpl(smaller):
+        smaller -= 1
+    
+    #Поиск ближайшего простого числа большего N
+    larger = N
+    while not smpl(larger):
+        larger += 1
+    
+    #Сравнивнение расстояния
+    if (N - smaller) <= (larger - N):
+        print(N - smaller)
+    else:
+        print(larger - N)
+}
+print("Разность:", N - 2)

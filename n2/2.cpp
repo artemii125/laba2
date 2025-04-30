@@ -5,7 +5,7 @@ int main() {
     int cups[2];
     cout << "Введите кол-во полных банок и эквивалент обмена: ";
     cin >> cups[0] >> cups[1];
-
+    if (cups[0] < 1) return false;
     int drunk = cups[0]; // изначально выпито
     int i = 0; // счётчик шагов
     int full = 0; // сколько новых банок получено
@@ -24,4 +24,3 @@ int main() {
     cout << "Выпито банок и кол-во итераций: " << drunk << " " << i << endl;
     return 0;
 }
-//

@@ -44,4 +44,3 @@ func main() {
 	}
 	fmt.Println(N - 2)
 }
-//

@@ -17,11 +17,11 @@ int main() {
 	if (N > 2){
 	    	// Поиск ближайшего простого числа <= N
 	    	int smaller = N;
-	    	while (smpl(smaller)) smaller--;
+	    	while (smpl(!smaller)) smaller--;
 	
 	    	// Поиск ближайшего простого числа >= N
 	    	int larger = N;
-	    	while (smpl(larger)) larger++;
+	    	while (smpl(!larger)) larger++;
 	
 	    	// Сравнение расстояний и вывод результата
 	    	if (N - smaller <= larger - N)

@@ -23,26 +23,26 @@ rl.question("Число для определения разности этог�
         rl.close();
         return;
     }
-
-    // Поиск ближайшего простого числа ≤ N
-    let smaller = N;
-    while (!smpl(smaller)) {
-        smaller--;
-        if (smaller < 2) break; // Простые числа начинаются с 2
-    }
-
-    // Поиск ближайшего простого числа ≥ N
-	let larger = N;
-	while (!smpl(larger)) {
-		larger++;
-	}
-
-	// Сравнение расстояний
-	const distanceToSmaller = N - smaller;
-	const distanceToLarger = larger - N;
-    
-	// Вывод минимального расстояния
-	console.log(Math.min(distanceToSmaller, distanceToLarger));
-    
-	rl.close();
+    if (N > 2){
+	    // Поиск ближайшего простого числа ≤ N
+	    let smaller = N;
+	    while (!smpl(smaller)) {
+	        smaller--;
+	        if (smaller < 2) break; // Простые числа начинаются с 2
+	    }
+	
+	    // Поиск ближайшего простого числа ≥ N
+		let larger = N;
+		while (!smpl(larger)) {
+			larger++;
+		}
+	
+		// Сравнение расстояний
+		const distanceToSmaller = N - smaller;
+		const distanceToLarger = larger - N;
+	    
+		// Вывод минимального расстояния
+		console.log(Math.min(distanceToSmaller, distanceToLarger));
+    console.log(N - 2);
+    rl.close();
 });

@@ -10,7 +10,7 @@ func main() {
   drunk := cups[0]
   i := 0
   full := 0
-  if cups[0] > 1 {
+  if cups[0] > 0 {
       // Пока можно обменивать
       for cups[0] >= cups[1] {
         i += 1 // шаг опустошения

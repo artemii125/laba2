@@ -5,18 +5,18 @@ if let line = readLine() {
     var drunk = cups[0] // изначально выпито
     var i = 0           // счётчик шагов
     var full: Int       // сколько полных банок в обмене
-
-    // пока можно обменивать
-    while cups[0] >= cups[1] {
-        i += 1
-        full = cups[0] / cups[1] // обмен
-        i += 1
-        let empty = cups[0] % cups[1] // остаток пустых
-        drunk += full
-        cups[0] = full + empty // обновляем банки
+    if cups[0] > 1{
+       // пока можно обменивать
+       while cups[0] >= cups[1] {
+           i += 1
+           full = cups[0] / cups[1] // обмен
+           i += 1
+           let empty = cups[0] % cups[1] // остаток пустых
+           drunk += full
+           cups[0] = full + empty // обновляем банки
+       }
+   
+       i += 1 // допиваем
+       print("Выпито банок и кол-во итераций: \(drunk) \(i)")
     }
-
-    i += 1 // допиваем
-    print("Выпито банок и кол-во итераций: \(drunk) \(i)")
 }
-//

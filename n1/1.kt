@@ -12,19 +12,20 @@ fun smpl(n: Int): Boolean {
 fun main() {
 	print("Введите число для определения разности между ним и ближайшим простым: ")
 	val N = readln().toInt()
-
-	// Поиск ближайшего простого числа, меньшего или равного N
-	var smaller = N
-	while (!smpl(smaller)) smaller--
-
-	// Поиск ближайшего простого числа, большего или равного N
-	var larger = N
-	while (!smpl(larger)) larger++
-
-	// Сравнение расстояний и вывод результата
-	if (N - smaller <= larger - N)
-		println("Разность: ${N - smaller}")
-	else
-		println("Разность: ${larger - N}")
+	if (N > 2){
+		// Поиск ближайшего простого числа, меньшего или равного N
+		var smaller = N
+		while (!smpl(smaller)) smaller--
+	
+		// Поиск ближайшего простого числа, большего или равного N
+		var larger = N
+		while (!smpl(larger)) larger++
+	
+		// Сравнение расстояний и вывод результата
+		if (N - smaller <= larger - N)
+			println("Разность: ${N - smaller}")
+		else
+			println("Разность: ${larger - N}")
+	}
+	println("Разность: ${N - 2}")
 }
-//

@@ -17,7 +17,7 @@ class Program
     {
         Console.Write("Введите число для определения разности между ним и ближайшим простым: ");
         int N = int.Parse(Console.ReadLine());
-
+        if (N > 2){
         // Поиск ближайшего простого числа <= N
         int smaller = N;
         while (!smpl(smaller)) smaller--;
@@ -28,6 +28,8 @@ class Program
 
         // Сравнение расстояний и вывод результата
         Console.WriteLine("Разность: " + Math.Min(N - smaller, larger - N));
+        }
+        Console.WriteLine(N - 2);
     }
 }
 
